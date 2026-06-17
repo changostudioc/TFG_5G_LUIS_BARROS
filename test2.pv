@@ -1,0 +1,8 @@
+free c: channel.
+
+free s: bitstring [private].
+
+query attacker(s).
+
+process
+  0

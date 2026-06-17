@@ -1,0 +1,457 @@
+digraph {
+graph [ordering = out]
+edge [arrowhead = none, penwidth = 1.6, fontsize = 30]
+node [shape = point, width = 0, height = 0, fontsize = 30]
+Trace<br/>
+[label = <A trace has been found.<br/>
+>, shape = plaintext]
+P0__0 [label = "Honest Process", shape = plaintext]
+P__0 [label = "Attacker", shape = plaintext]
+Trace -> P0__0 [label = "", style = invisible, weight = 100]{rank = same; P0__0 P__0}
+P0__0 -> P0__1 [label = <>, weight = 100]
+P0__1 -> P0__2 [label = <>, weight = 100]
+P0__2 [shape = plaintext, label = <<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4"> <TR><TD><FONT COLOR="darkgreen">{1}</FONT><FONT COLOR="blue">new </FONT>skAUSF_2</TD></TR><TR><TD><FONT COLOR="darkgreen">{2}</FONT><FONT COLOR="blue">new </FONT>skUDM_2</TD></TR><TR><TD><FONT COLOR="darkgreen">{3}</FONT><FONT COLOR="blue">new </FONT>skUE_1</TD></TR><TR><TD><FONT COLOR="darkgreen">{4}</FONT><FONT COLOR="blue">new </FONT>sskAUSF_2</TD></TR><TR><TD><FONT COLOR="darkgreen">{5}</FONT><FONT COLOR="blue">new </FONT>sskUE_2</TD></TR><TR><TD><FONT COLOR="darkgreen">{6}</FONT><FONT COLOR="blue">let</FONT> pkAUSF: pkey = pk(skAUSF_2)</TD></TR></TABLE>>]
+P0__2 -> P0__3 [label = <>, weight = 100]
+P0__3 -> P0__4 [label = <>, weight = 100]
+P__0 -> P__1 [label = <>, weight = 100]
+{rank = same; P__1 P0__4}
+P0__4 -> P0__5 [label = <>, weight = 100]
+P__1 -> P__2 [label = <>, weight = 100]
+{rank = same; P__2 P0__5}
+P0__5 -> P__2 [label = <~M = pk(skAUSF_2)>, arrowhead = normal]
+P0__5 -> P0__6 [label = <>, weight = 100]
+P__2 -> P__3 [label = <>, weight = 100]
+{rank = same; P__3 P0__6}
+P0__6 -> P0__7 [label = <>, weight = 100]
+P0__7 [shape = plaintext, label = <<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4"> <TR><TD><FONT COLOR="darkgreen">{7}</FONT><FONT COLOR="blue">let</FONT> pkUDM: pkey = pk(skUDM_2)</TD></TR></TABLE>>]
+P0__7 -> P0__8 [label = <>, weight = 100]
+P0__8 -> P0__9 [label = <>, weight = 100]
+P__3 -> P__4 [label = <>, weight = 100]
+{rank = same; P__4 P0__9}
+P0__9 -> P0__10 [label = <>, weight = 100]
+P__4 -> P__5 [label = <>, weight = 100]
+{rank = same; P__5 P0__10}
+P0__10 -> P__5 [label = <~M_1 = pk(skUDM_2)>, arrowhead = normal]
+P0__10 -> P0__11 [label = <>, weight = 100]
+P__5 -> P__6 [label = <>, weight = 100]
+{rank = same; P__6 P0__11}
+P0__11 -> P0__12 [label = <>, weight = 100]
+P0__12 [shape = plaintext, label = <<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4"> <TR><TD><FONT COLOR="darkgreen">{8}</FONT><FONT COLOR="blue">let</FONT> pkUE: pkey = pk(skUE_1)</TD></TR></TABLE>>]
+P0__12 -> P0__13 [label = <>, weight = 100]
+P0__13 -> P0__14 [label = <>, weight = 100]
+P__6 -> P__7 [label = <>, weight = 100]
+{rank = same; P__7 P0__14}
+P0__14 -> P0__15 [label = <>, weight = 100]
+P__7 -> P__8 [label = <>, weight = 100]
+{rank = same; P__8 P0__15}
+P0__15 -> P__8 [label = <~M_2 = pk(skUE_1)>, arrowhead = normal]
+P0__15 -> P0__16 [label = <>, weight = 100]
+P__8 -> P__9 [label = <>, weight = 100]
+{rank = same; P__9 P0__16}
+P0__16 -> P0__17 [label = <>, weight = 100]
+P0__17 [shape = plaintext, label = <<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4"> <TR><TD><FONT COLOR="darkgreen">{9}</FONT><FONT COLOR="blue">let</FONT> spkAUSF: spkey = spk(sskAUSF_2)</TD></TR></TABLE>>]
+P0__17 -> P0__18 [label = <>, weight = 100]
+P0__18 -> P0__19 [label = <>, weight = 100]
+P__9 -> P__10 [label = <>, weight = 100]
+{rank = same; P__10 P0__19}
+P0__19 -> P0__20 [label = <>, weight = 100]
+P__10 -> P__11 [label = <>, weight = 100]
+{rank = same; P__11 P0__20}
+P0__20 -> P__11 [label = <~M_3 = spk(sskAUSF_2)>, arrowhead = normal]
+P0__20 -> P0__21 [label = <>, weight = 100]
+P__11 -> P__12 [label = <>, weight = 100]
+{rank = same; P__12 P0__21}
+P0__21 -> P0__22 [label = <>, weight = 100]
+P0__22 [shape = plaintext, label = <<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4"> <TR><TD><FONT COLOR="darkgreen">{10}</FONT><FONT COLOR="blue">let</FONT> spkUE: spkey = spk(sskUE_2)</TD></TR></TABLE>>]
+P0__22 -> P0__23 [label = <>, weight = 100]
+P0__23 -> P0__24 [label = <>, weight = 100]
+P__12 -> P__13 [label = <>, weight = 100]
+{rank = same; P__13 P0__24}
+P0__24 -> P0__25 [label = <>, weight = 100]
+P__13 -> P__14 [label = <>, weight = 100]
+{rank = same; P__14 P0__25}
+P0__25 -> P__14 [label = <~M_4 = spk(sskUE_2)>, arrowhead = normal]
+P0__25 -> P0__26 [label = <>, weight = 100]
+P__14 -> P__15 [label = <>, weight = 100]
+{rank = same; P__15 P0__26}
+P0__26 -> P0__27 [label = <>, weight = 100]
+P__15 -> P__16 [label = <>, weight = 100]
+{rank = same; P__16 P0__27}
+P0__27 -> P0__28 [label = <>, weight = 100]
+P__16 -> P__17 [label = <>, weight = 100]
+{rank = same; P__17 P0__28}
+P0__28 -> P__17 [label = <~M_5 = SEAFN>, arrowhead = normal]
+P0__28 -> P0__29 [label = <>, weight = 100]
+P__17 -> P__18 [label = <>, weight = 100]
+{rank = same; P__18 P0__29}
+P0__29 -> P0__30 [label = <>, weight = 100]
+P__18 -> P__19 [label = <>, weight = 100]
+{rank = same; P__19 P0__30}
+P0__30 -> P0__31 [label = <>, weight = 100]
+P__19 -> P__20 [label = <>, weight = 100]
+{rank = same; P__20 P0__31}
+P0__31 -> P__20 [label = <~M_6 = pk(skAUSF_2)>, arrowhead = normal]
+P0__31 -> P0__32 [label = <>, weight = 100]
+P__20 -> P__21 [label = <>, weight = 100]
+{rank = same; P__21 P0__32}
+P0__32 -> P0__33 [label = <>, weight = 100]
+P__21 -> P__22 [label = <>, weight = 100]
+{rank = same; P__22 P0__33}
+P0__33 -> P0__34 [label = <>, weight = 100]
+P__22 -> P__23 [label = <>, weight = 100]
+{rank = same; P__23 P0__34}
+P0__34 -> P__23 [label = <~M_7 = pk(skUDM_2)>, arrowhead = normal]
+P0__34 -> P0__35 [label = <>, weight = 100]
+P__23 -> P__24 [label = <>, weight = 100]
+{rank = same; P__24 P0__35}
+P0__35 -> P0__36 [label = <>, weight = 100]
+P__24 -> P__25 [label = <>, weight = 100]
+{rank = same; P__25 P0__36}
+P0__36 -> P0__37 [label = <>, weight = 100]
+P__25 -> P__26 [label = <>, weight = 100]
+{rank = same; P__26 P0__37}
+P0__37 -> P__26 [label = <~M_8 = pk(skUE_1)>, arrowhead = normal]
+P0__37 -> P0__38 [label = <>, weight = 100]
+P__26 -> P__27 [label = <>, weight = 100]
+{rank = same; P__27 P0__38}
+P0__38 -> P0__39 [label = <>, weight = 100]
+P__27 -> P__28 [label = <>, weight = 100]
+{rank = same; P__28 P0__39}
+P0__39 -> P0__40 [label = <>, weight = 100]
+P__28 -> P__29 [label = <>, weight = 100]
+{rank = same; P__29 P0__40}
+P0__40 -> P__29 [label = <~M_9 = spk(sskAUSF_2)>, arrowhead = normal]
+P0__40 -> P0__41 [label = <>, weight = 100]
+P__29 -> P__30 [label = <>, weight = 100]
+{rank = same; P__30 P0__41}
+P0__41 -> P0__42 [label = <>, weight = 100]
+P__30 -> P__31 [label = <>, weight = 100]
+{rank = same; P__31 P0__42}
+P0__42 -> P0__43 [label = <>, weight = 100]
+P__31 -> P__32 [label = <>, weight = 100]
+{rank = same; P__32 P0__43}
+P0__43 -> P__32 [label = <~M_10 = spk(sskUE_2)>, arrowhead = normal]
+P0__43 -> P0__44 [label = <>, weight = 100]
+P__32 -> P__33 [label = <>, weight = 100]
+{rank = same; P__33 P0__44}
+P0__44 -> P0__45 [label = <>, weight = 100]
+P__33 -> P__34 [label = <>, weight = 100]
+{rank = same; P__34 P0__45}
+P0__45 -> P0__46 [label = <>, weight = 100]
+P__34 -> P__35 [label = <>, weight = 100]
+{rank = same; P__35 P0__46}
+P0__46 -> P__35 [label = <~M_11 = SEAFN>, arrowhead = normal]
+P0__46 -> P0__47 [label = <>, weight = 100]
+P__35 -> P__36 [label = <>, weight = 100]
+{rank = same; P__36 P0__47}
+P0__47 -> P0__48 [label = <>, weight = 100]
+P__36 -> P__37 [label = <>, weight = 100]
+{rank = same; P__37 P0__48}
+P0__48 -> P0__49 [label = <>, weight = 100]
+P__37 -> P__38 [label = <>, weight = 100]
+{rank = same; P__38 P0__49}
+P0__49 -> P__38 [label = <~M_12 = pk(skAUSF_2)>, arrowhead = normal]
+P0__49 -> P0__50 [label = <>, weight = 100]
+P__38 -> P__39 [label = <>, weight = 100]
+{rank = same; P__39 P0__50}
+P0__50 -> P0__51 [label = <>, weight = 100]
+P__39 -> P__40 [label = <>, weight = 100]
+{rank = same; P__40 P0__51}
+P0__51 -> P0__52 [label = <>, weight = 100]
+P__40 -> P__41 [label = <>, weight = 100]
+{rank = same; P__41 P0__52}
+P0__52 -> P__41 [label = <~M_13 = pk(skUDM_2)>, arrowhead = normal]
+P0__52 -> P0__53 [label = <>, weight = 100]
+P__41 -> P__42 [label = <>, weight = 100]
+{rank = same; P__42 P0__53}
+P0__53 -> P0__54 [label = <>, weight = 100]
+P__42 -> P__43 [label = <>, weight = 100]
+{rank = same; P__43 P0__54}
+P0__54 -> P0__55 [label = <>, weight = 100]
+P__43 -> P__44 [label = <>, weight = 100]
+{rank = same; P__44 P0__55}
+P0__55 -> P__44 [label = <~M_14 = pk(skUE_1)>, arrowhead = normal]
+P0__55 -> P0__56 [label = <>, weight = 100]
+P__44 -> P__45 [label = <>, weight = 100]
+{rank = same; P__45 P0__56}
+P0__56 -> P0__57 [label = <>, weight = 100]
+P__45 -> P__46 [label = <>, weight = 100]
+{rank = same; P__46 P0__57}
+P0__57 -> P0__58 [label = <>, weight = 100]
+P__46 -> P__47 [label = <>, weight = 100]
+{rank = same; P__47 P0__58}
+P0__58 -> P__47 [label = <~M_15 = spk(sskAUSF_2)>, arrowhead = normal]
+P0__58 -> P0__59 [label = <>, weight = 100]
+P__47 -> P__48 [label = <>, weight = 100]
+{rank = same; P__48 P0__59}
+P0__59 -> P0__60 [label = <>, weight = 100]
+P__48 -> P__49 [label = <>, weight = 100]
+{rank = same; P__49 P0__60}
+P0__60 -> P0__61 [label = <>, weight = 100]
+P__49 -> P__50 [label = <>, weight = 100]
+{rank = same; P__50 P0__61}
+P0__61 -> P__50 [label = <~M_16 = spk(sskUE_2)>, arrowhead = normal]
+P0__61 -> P0__62 [label = <>, weight = 100]
+P__50 -> P__51 [label = <>, weight = 100]
+{rank = same; P__51 P0__62}
+P0__62 -> P0__63 [label = <>, weight = 100]
+P__51 -> P__52 [label = <>, weight = 100]
+{rank = same; P__52 P0__63}
+P0__63 -> P0__64 [label = <>, weight = 100]
+P__52 -> P__53 [label = <>, weight = 100]
+{rank = same; P__53 P0__64}
+P0__64 -> P__53 [label = <~M_17 = SEAFN>, arrowhead = normal]
+P0__64 -> P0__65 [label = <>, weight = 100]
+P__53 -> P__54 [label = <>, weight = 100]
+{rank = same; P__54 P0__65}
+/*RPar */
+P0__65 -> P0_3__65 [label = <>]
+P0__65 -> P0_2__65 [label = <>]
+P0__65 -> P0_1__65 [label = <>]
+P0__65 -> P0_0__65 [label = <>]
+P0__65 [label = "", fixedsize = false, width = 0, height = 0, shape = none]
+{rank = same; P0_0__65 P0_1__65 P0_2__65 P0_3__65}
+P0_0__65 [label = "!", shape = ellipse]
+P0_1__65 [label = "!", shape = ellipse]
+P0_1_0__65 [label = "", fixedsize = false, width = 0, height = 0, shape = none]
+P0_1__65 -> P0_1_0__65 [label = <>, weight = 100]
+P0_1_0__65 -> P0_1_0__66 [label = <>, weight = 100]
+P0_1_0__66 [shape = plaintext, label = <<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4"> <TR><TD>Beginning of process <FONT COLOR="darkgreen">AUSF</FONT></TD></TR></TABLE>>]
+P0_1_0__66 -> P0_1_0__67 [label = <>, weight = 100]
+P0_2__65 [label = "!", shape = ellipse]
+P0_3__65 [label = "!", shape = ellipse]
+P0_3_0__65 [label = "", fixedsize = false, width = 0, height = 0, shape = none]
+P0_3__65 -> P0_3_0__65 [label = <>, weight = 100]
+P0_3_0__65 -> P0_3_0__66 [label = <>, weight = 100]
+P0_3_0__66 [shape = plaintext, label = <<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4"> <TR><TD>Beginning of process <FONT COLOR="darkgreen">UE</FONT></TD></TR><TR><TD><FONT COLOR="darkgreen">{31}</FONT><FONT COLOR="blue">new </FONT>Rue_1</TD></TR></TABLE>>]
+P0_3_0__66 -> P0_3_0__67 [label = <>, weight = 100]
+P0_3_0__67 -> P0_3_0__68 [label = <>, weight = 100]
+P0_2__66 [label = "", style = invisible]
+P0_2__65 -> P0_2__66 [label = <>, weight = 100, style = invisible]
+P0_1_0__67 -> P0_1_0__68 [label = <>, weight = 100]
+P0_0__66 [label = "", style = invisible]
+P0_0__65 -> P0_0__66 [label = <>, weight = 100, style = invisible]
+P__54 -> P__55 [label = <>, weight = 100]
+{rank = same; P__55 P0_0__66 P0_1_0__68 P0_2__66 P0_3_0__68}
+P0_3_0__68 -> P0_3_0__69 [label = <>, weight = 100]
+P__55 -> P__56 [label = <>, weight = 100]
+{rank = same; P__56 P0_3_0__69}
+P0_3_0__69 -> P__56 [label = <~M_18 = aenc((SUPI,Rue_1),pk(skUDM_2))>, arrowhead = normal]
+P0_3_0__69 -> P0_3_0__70 [label = <>, weight = 100]
+P0_2__67 [label = "", style = invisible]
+P0_2__66 -> P0_2__67 [label = <>, weight = 100, style = invisible]
+P0_1_0__68 -> P0_1_0__69 [label = <>, weight = 100]
+P0_0__67 [label = "", style = invisible]
+P0_0__66 -> P0_0__67 [label = <>, weight = 100, style = invisible]
+P__56 -> P__57 [label = <>, weight = 100]
+{rank = same; P__57 P0_0__67 P0_1_0__69 P0_2__67 P0_3_0__70}
+P0_3_0__70 -> P0_3_0__71 [label = <>, weight = 100]
+P0_2__68 [label = "", style = invisible]
+P0_2__67 -> P0_2__68 [label = <>, weight = 100, style = invisible]
+P0_1_0__69 -> P0_1_0__70 [label = <>, weight = 100]
+P0_0__68 [label = "", style = invisible]
+P0_0__67 -> P0_0__68 [label = <>, weight = 100, style = invisible]
+P__57 -> P__58 [label = <>, weight = 100]
+{rank = same; P__58 P0_0__68 P0_1_0__70 P0_2__68 P0_3_0__71}
+P0_3_0__71 -> P0_3_0__72 [label = <>, weight = 100]
+P__58 -> P__59 [label = <>, weight = 100]
+{rank = same; P__59 P0_3_0__72}
+P0_3_0__72 -> P__59 [label = <a_2>, dir = back, arrowhead = normal]
+P0_3_0__72 -> P0_3_0__73 [label = <>, weight = 100]
+P0_2__69 [label = "", style = invisible]
+P0_2__68 -> P0_2__69 [label = <>, weight = 100, style = invisible]
+P0_1_0__70 -> P0_1_0__71 [label = <>, weight = 100]
+P0_0__69 [label = "", style = invisible]
+P0_0__68 -> P0_0__69 [label = <>, weight = 100, style = invisible]
+P__59 -> P__60 [label = <>, weight = 100]
+{rank = same; P__60 P0_0__69 P0_1_0__71 P0_2__69 P0_3_0__73}
+P0_3_0__73 -> P0_3_0__74 [label = <>, weight = 100]
+P0_3_0__74 [shape = plaintext, label = <<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4"> <TR><TD><FONT COLOR="darkgreen">{34}</FONT><FONT COLOR="blue">new </FONT>Rue1_2</TD></TR></TABLE>>]
+P0_3_0__74 -> P0_3_0__75 [label = <>, weight = 100]
+P0_3_0__75 -> P0_3_0__76 [label = <>, weight = 100]
+P0_2__70 [label = "", style = invisible]
+P0_2__69 -> P0_2__70 [label = <>, weight = 100, style = invisible]
+P0_1_0__71 -> P0_1_0__72 [label = <>, weight = 100]
+P0_0__70 [label = "", style = invisible]
+P0_0__69 -> P0_0__70 [label = <>, weight = 100, style = invisible]
+P__60 -> P__61 [label = <>, weight = 100]
+{rank = same; P__61 P0_0__70 P0_1_0__72 P0_2__70 P0_3_0__76}
+P0_3_0__76 -> P0_3_0__77 [label = <>, weight = 100]
+P__61 -> P__62 [label = <>, weight = 100]
+{rank = same; P__62 P0_3_0__77}
+P0_3_0__77 -> P__62 [label = <~M_19 = Rue1_2>, arrowhead = normal]
+P0_3_0__77 -> P0_3_0__78 [label = <>, weight = 100]
+P0_2__71 [label = "", style = invisible]
+P0_2__70 -> P0_2__71 [label = <>, weight = 100, style = invisible]
+P0_1_0__72 -> P0_1_0__73 [label = <>, weight = 100]
+P0_0__71 [label = "", style = invisible]
+P0_0__70 -> P0_0__71 [label = <>, weight = 100, style = invisible]
+P__62 -> P__63 [label = <>, weight = 100]
+{rank = same; P__63 P0_0__71 P0_1_0__73 P0_2__71 P0_3_0__78}
+P0_1_0__73 -> P0_1_0__74 [label = <>, weight = 100]
+P0_0__72 [label = "", style = invisible]
+P0_0__71 -> P0_0__72 [label = <>, weight = 100, style = invisible]
+P__63 -> P__64 [label = <>, weight = 100]
+{rank = same; P__64 P0_0__72 P0_1_0__74}
+P0_1_0__74 -> P0_1_0__75 [label = <>, weight = 100]
+P__64 -> P__65 [label = <>, weight = 100]
+{rank = same; P__65 P0_1_0__75}
+P0_1_0__75 -> P__65 [label = <(a_1,SEAFN)>, dir = back, arrowhead = normal]
+P0_1_0__75 -> P0_1_0__76 [label = <>, weight = 100]
+P0_0__73 [label = "", style = invisible]
+P0_0__72 -> P0_0__73 [label = <>, weight = 100, style = invisible]
+P__65 -> P__66 [label = <>, weight = 100]
+{rank = same; P__66 P0_0__73 P0_1_0__76}
+P0_1_0__76 -> P0_1_0__77 [label = <>, weight = 100]
+P0_1_0__77 [shape = plaintext, label = <<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4"> <TR><TD><FONT COLOR="darkgreen">{74}</FONT><FONT COLOR="blue">if</FONT> (SEAFN = SEAFN)</TD></TR></TABLE>>]
+P0_1_0__77 -> P0_1_0__78 [label = <>, weight = 100]
+P0_1_0__78 -> P0_1_0__79 [label = <>, weight = 100]
+P0_0__74 [label = "", style = invisible]
+P0_0__73 -> P0_0__74 [label = <>, weight = 100, style = invisible]
+P__66 -> P__67 [label = <>, weight = 100]
+{rank = same; P__67 P0_0__74 P0_1_0__79}
+P0_1_0__79 -> P0_1_0__80 [label = <>, weight = 100]
+P__67 -> P__68 [label = <>, weight = 100]
+{rank = same; P__68 P0_1_0__80}
+P0_1_0__80 -> P__68 [label = <(~M_20,~M_21) = (a_1,SEAFN)>, arrowhead = normal]
+P0_1_0__80 -> P0_1_0__81 [label = <>, weight = 100]
+P0_0__75 [label = "", style = invisible]
+P0_0__74 -> P0_0__75 [label = <>, weight = 100, style = invisible]
+P__68 -> P__69 [label = <>, weight = 100]
+{rank = same; P__69 P0_0__75 P0_1_0__81}
+P0_1_0__81 -> P0_1_0__82 [label = <>, weight = 100]
+P0_0__76 [label = "", style = invisible]
+P0_0__75 -> P0_0__76 [label = <>, weight = 100, style = invisible]
+P__69 -> P__70 [label = <>, weight = 100]
+{rank = same; P__70 P0_0__76 P0_1_0__82}
+P0_1_0__82 -> P0_1_0__83 [label = <>, weight = 100]
+P__70 -> P__71 [label = <>, weight = 100]
+{rank = same; P__71 P0_1_0__83}
+P0_1_0__83 -> P__71 [label = <a_2>, dir = back, arrowhead = normal]
+P0_1_0__83 -> P0_1_0__84 [label = <>, weight = 100]
+P0_0__77 [label = "", style = invisible]
+P0_0__76 -> P0_0__77 [label = <>, weight = 100, style = invisible]
+P__71 -> P__72 [label = <>, weight = 100]
+{rank = same; P__72 P0_0__77 P0_1_0__84}
+P0_1_0__84 -> P0_1_0__85 [label = <>, weight = 100]
+P0_0__78 [label = "", style = invisible]
+P0_0__77 -> P0_0__78 [label = <>, weight = 100, style = invisible]
+P__72 -> P__73 [label = <>, weight = 100]
+{rank = same; P__73 P0_0__78 P0_1_0__85}
+P0_1_0__85 -> P0_1_0__86 [label = <>, weight = 100]
+P__73 -> P__74 [label = <>, weight = 100]
+{rank = same; P__74 P0_1_0__86}
+P0_1_0__86 -> P__74 [label = <~M_22 = a_2>, arrowhead = normal]
+P0_1_0__86 -> P0_1_0__87 [label = <>, weight = 100]
+P0_0__79 [label = "", style = invisible]
+P0_0__78 -> P0_0__79 [label = <>, weight = 100, style = invisible]
+P__74 -> P__75 [label = <>, weight = 100]
+{rank = same; P__75 P0_0__79 P0_1_0__87}
+P0_1_0__87 -> P0_1_0__88 [label = <>, weight = 100]
+P0_0__80 [label = "", style = invisible]
+P0_0__79 -> P0_0__80 [label = <>, weight = 100, style = invisible]
+P__75 -> P__76 [label = <>, weight = 100]
+{rank = same; P__76 P0_0__80 P0_1_0__88}
+P0_1_0__88 -> P0_1_0__89 [label = <>, weight = 100]
+P__76 -> P__77 [label = <>, weight = 100]
+{rank = same; P__77 P0_1_0__89}
+P0_1_0__89 -> P__77 [label = <~M_19 = Rue1_2>, dir = back, arrowhead = normal]
+P0_1_0__89 -> P0_1_0__90 [label = <>, weight = 100]
+P0_0__81 [label = "", style = invisible]
+P0_0__80 -> P0_0__81 [label = <>, weight = 100, style = invisible]
+P__77 -> P__78 [label = <>, weight = 100]
+{rank = same; P__78 P0_0__81 P0_1_0__90}
+P0_1_0__90 -> P0_1_0__91 [label = <>, weight = 100]
+P0_1_0__91 [shape = plaintext, label = <<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4"> <TR><TD><FONT COLOR="darkgreen">{79}</FONT><FONT COLOR="blue">new </FONT>Rausf_2</TD></TR></TABLE>>]
+P0_1_0__91 -> P0_1_0__92 [label = <>, weight = 100]
+P0_1_0__92 -> P0_1_0__93 [label = <>, weight = 100]
+P0_0__82 [label = "", style = invisible]
+P0_0__81 -> P0_0__82 [label = <>, weight = 100, style = invisible]
+P__78 -> P__79 [label = <>, weight = 100]
+{rank = same; P__79 P0_0__82 P0_1_0__93}
+P0_1_0__93 -> P0_1_0__94 [label = <>, weight = 100]
+P__79 -> P__80 [label = <>, weight = 100]
+{rank = same; P__80 P0_1_0__94}
+P0_1_0__94 -> P__80 [label = <(~M_23,~M_24) = (Rausf_2,CertAUSF)>, arrowhead = normal]
+P0_1_0__94 -> P0_1_0__95 [label = <>, weight = 100]
+P0_0__83 [label = "", style = invisible]
+P0_0__82 -> P0_0__83 [label = <>, weight = 100, style = invisible]
+P__80 -> P__81 [label = <>, weight = 100]
+{rank = same; P__81 P0_0__83 P0_1_0__95}
+P0_3_0__78 -> P0_3_0__79 [label = <>, weight = 100]
+P0_2__72 [label = "", style = invisible]
+P0_2__71 -> P0_2__72 [label = <>, weight = 100, style = invisible]
+P0_1_0__95 -> P0_1_0__96 [label = <>, weight = 100]
+P0_0__84 [label = "", style = invisible]
+P0_0__83 -> P0_0__84 [label = <>, weight = 100, style = invisible]
+P__81 -> P__82 [label = <>, weight = 100]
+{rank = same; P__82 P0_0__84 P0_1_0__96 P0_2__72 P0_3_0__79}
+P0_3_0__79 -> P0_3_0__80 [label = <>, weight = 100]
+P__82 -> P__83 [label = <>, weight = 100]
+{rank = same; P__83 P0_3_0__80}
+P0_3_0__80 -> P__83 [label = <(~M_23,CertAUSF) = (Rausf_2,CertAUSF)>, dir = back, arrowhead = normal]
+P0_3_0__80 -> P0_3_0__81 [label = <>, weight = 100]
+P0_2__73 [label = "", style = invisible]
+P0_2__72 -> P0_2__73 [label = <>, weight = 100, style = invisible]
+P0_1_0__96 -> P0_1_0__97 [label = <>, weight = 100]
+P0_0__85 [label = "", style = invisible]
+P0_0__84 -> P0_0__85 [label = <>, weight = 100, style = invisible]
+P__83 -> P__84 [label = <>, weight = 100]
+{rank = same; P__84 P0_0__85 P0_1_0__97 P0_2__73 P0_3_0__81}
+P0_3_0__81 -> P0_3_0__82 [label = <>, weight = 100]
+P0_3_0__82 [shape = plaintext, label = <<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4"> <TR><TD><FONT COLOR="darkgreen">{37}</FONT><FONT COLOR="blue">let</FONT> =CertAUSF = CertAUSF</TD></TR><TR><TD><FONT COLOR="darkgreen">{38}</FONT><FONT COLOR="blue">new </FONT>Rprekey_2</TD></TR><TR><TD><FONT COLOR="darkgreen">{43}</FONT><FONT COLOR="blue">event</FONT> acceptsUE(Rue1_2)</TD></TR><TR><TD><FONT COLOR="darkgreen">{39}</FONT><FONT COLOR="blue">let</FONT> prekey_1: bitstring = Rprekey_2</TD></TR><TR><TD><FONT COLOR="darkgreen">{44}</FONT><FONT COLOR="blue">event</FONT> sendPrek(Rprekey_2)</TD></TR><TR><TD><FONT COLOR="darkgreen">{42}</FONT><FONT COLOR="blue">let</FONT> HSUE: bitstring = (a_2,Rue1_2,Rausf_2,<br/>
+CertAUSF)</TD></TR><TR><TD><FONT COLOR="darkgreen">{40}</FONT><FONT COLOR="blue">let</FONT> a: bitstring = h(Rue1_2,Rausf_2,Rprekey_2)<br/>
+</TD></TR><TR><TD><FONT COLOR="darkgreen">{41}</FONT><FONT COLOR="blue">let</FONT> Ksession_1: key = b_to_k(h(Rue1_2,Rausf_2,<br/>
+Rprekey_2))</TD></TR><TR><TD><FONT COLOR="darkgreen">{30}</FONT><FONT COLOR="blue">let</FONT> sskUE_1: sskey = sskUE_2</TD></TR></TABLE>>]
+P0_3_0__82 -> P0_3_0__83 [label = <>, weight = 100]
+P0_3_0__83 -> P0_3_0__84 [label = <>, weight = 100]
+P0_2__74 [label = "", style = invisible]
+P0_2__73 -> P0_2__74 [label = <>, weight = 100, style = invisible]
+P0_1_0__97 -> P0_1_0__98 [label = <>, weight = 100]
+P0_0__86 [label = "", style = invisible]
+P0_0__85 -> P0_0__86 [label = <>, weight = 100, style = invisible]
+P__84 -> P__85 [label = <>, weight = 100]
+{rank = same; P__85 P0_0__86 P0_1_0__98 P0_2__74 P0_3_0__84}
+P0_3_0__84 -> P0_3_0__85 [label = <>, weight = 100]
+P__85 -> P__86 [label = <>, weight = 100]
+{rank = same; P__86 P0_3_0__85}
+P0_3_0__85 -> P__86 [label = <(~M_25,~M_26,~M_27,~M_28)>, arrowhead = normal]
+P0_3_0__85 -> P0_3_0__86 [label = <>, weight = 100]
+P0_2__75 [label = "", style = invisible]
+P0_2__74 -> P0_2__75 [label = <>, weight = 100, style = invisible]
+P0_1_0__98 -> P0_1_0__99 [label = <>, weight = 100]
+P0_0__87 [label = "", style = invisible]
+P0_0__86 -> P0_0__87 [label = <>, weight = 100, style = invisible]
+P__86 -> P__87 [label = <>, weight = 100]
+{rank = same; P__87 P0_0__87 P0_1_0__99 P0_2__75 P0_3_0__86}
+P0_1_0__99 -> P0_1_0__100 [label = <>, weight = 100]
+P0_0__88 [label = "", style = invisible]
+P0_0__87 -> P0_0__88 [label = <>, weight = 100, style = invisible]
+P__87 -> P__88 [label = <>, weight = 100]
+{rank = same; P__88 P0_0__88 P0_1_0__100}
+P0_1_0__100 -> P0_1_0__101 [label = <>, weight = 100]
+P__88 -> P__89 [label = <>, weight = 100]
+{rank = same; P__89 P0_1_0__101}
+P0_1_0__101 -> P__89 [label = <~X_1>, dir = back, arrowhead = normal]
+P0_1_0__101 -> P0_1_0__102 [label = <>, weight = 100]
+P0_0__89 [label = "", style = invisible]
+P0_0__88 -> P0_0__89 [label = <>, weight = 100, style = invisible]
+P__89 -> P__90 [label = <>, weight = 100]
+{rank = same; P__90 P0_0__89 P0_1_0__102}
+P0_1_0__102 -> P0_1_0__103 [label = <>, weight = 100]
+P0_1_0__103 [shape = plaintext, label = <<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4"> <TR><TD><FONT COLOR="darkgreen">{82}</FONT><FONT COLOR="blue">let</FONT> =CertUE = CertUE</TD></TR><TR><TD><FONT COLOR="darkgreen">{71}</FONT><FONT COLOR="blue">let</FONT> skAUSF_1: skey = skAUSF_2</TD></TR><TR><TD><FONT COLOR="darkgreen">{83}</FONT><FONT COLOR="blue">let</FONT> prekeyx: bitstring = a_3</TD></TR><TR><TD><FONT COLOR="darkgreen">{86}</FONT><FONT COLOR="blue">let</FONT> HSAUSF: bitstring = (a_2,Rue1_2,Rausf_2,<br/>
+CertAUSF)</TD></TR><TR><TD><FONT COLOR="darkgreen">{84}</FONT><FONT COLOR="blue">let</FONT> b: bitstring = h(Rue1_2,Rausf_2,a_3)</TD></TR><TR><TD><FONT COLOR="darkgreen">{85}</FONT><FONT COLOR="blue">let</FONT> Ksessionx: key = b_to_k(h(Rue1_2,Rausf_2,<br/>
+a_3))</TD></TR><TR><TD><FONT COLOR="darkgreen">{87}</FONT><FONT COLOR="blue">let</FONT> =(a_2,Rue1_2,Rausf_2,CertAUSF) = (a_2,<br/>
+Rue1_2,Rausf_2,CertAUSF)</TD></TR><TR><TD><FONT COLOR="darkgreen">{88}</FONT><FONT COLOR="blue">let</FONT> =(a_2,Rue1_2,Rausf_2,CertAUSF) = (a_2,<br/>
+Rue1_2,Rausf_2,CertAUSF)</TD></TR></TABLE>>]
+P0_1_0__103 -> P0_1_0__104 [label = <>, weight = 100]
+P0_1_0__104 -> P0_1_0__105 [label = <>, weight = 100]
+P0_1_0__105 [color = red, shape = plaintext, label = <<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4"> <TR><TD><FONT COLOR="darkgreen">{89}</FONT><FONT COLOR="blue">event</FONT> acceptPrek(a_3)</TD></TR></TABLE>>]
+P0_1_0__105 -> P0_1_0__106 [label = <>, weight = 100]
+Abbrev [shape = plaintext, label = <<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4"><TR> <TD> Abbreviations </TD></TR><TR><TD>~M_25 = aenc(Rprekey_2,pk(skAUSF_2))</TD></TR><TR><TD>~M_26 = CertUE</TD></TR><TR><TD>~M_27 = sign((a_2,Rue1_2,Rausf_2,CertAUSF),sskUE_2)</TD></TR><TR><TD>~M_28 = senc((a_2,Rue1_2,Rausf_2,CertAUSF),b_to_k(<br/>
+h(Rue1_2,Rausf_2,Rprekey_2)))</TD></TR><TR><TD>~X_1 = (aenc(a_3,~M),CertUE,~M_27,senc((a_2,~M_19,~M_23,<br/>
+CertAUSF),b_to_k(h(~M_19,~M_23,a_3))))<br/>
+= (aenc(<br/>
+a_3,pk(skAUSF_2)),CertUE,sign((a_2,Rue1_2,Rausf_2,<br/>
+CertAUSF),sskUE_2),senc((a_2,Rue1_2,Rausf_2,CertAUSF),<br/>
+b_to_k(h(Rue1_2,Rausf_2,a_3))))</TD></TR></TABLE>>]Abbrev -> P__0 [style = invisible, weight =100]}

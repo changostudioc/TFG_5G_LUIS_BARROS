@@ -1,0 +1,344 @@
+(* ===================================================== *)
+(* 5G EAP-TLS simplified model                           *)
+(* ===================================================== *)
+(* Definición de los actores involucrados *)
+(* --------------------------------------------------------- *)
+
+        (* UE  <---- c1 público ---->  SEAF  <---- c2 privado ---->  AUSF  <---- c3 privado ---->  UDM *)
+(* set maxDepth = 800.*)
+
+set traceDisplay = long. (*Para construir una versión mas detallada del grafo cuando la salida da false*)
+
+(* set reconstructTrace = true. *)
+(* --------------------------------------------------------- *)
+
+(* --------------------------------------------------------- *)
+(* 1. Tipos                                                  *)
+(* --------------------------------------------------------- *)
+
+type skey.     (* Clave privada para cifrado asimétrico, clave privada de AUSF o UDM *)
+type pkey.     (* Clave pública para cifrado asimétrico, pkAUSF o pkUDM  *)
+
+type sskey.    (* Clave privada para firma digital *)
+type spkey.    (* Clave pública para verificación de firma, spkUE o spkAUSF *)
+
+type key.      (* Clave simétrica de sesión, Ksession o KSEAF *)
+
+(* --------------------------------------------------------- *)
+(* 2. Canales                                               *)
+(* --------------------------------------------------------- *)
+
+free c1: channel.     (* UE <-> SEAF: canal público inalámbrico *)
+free c2: channel .    (* SEAF <-> AUSF: canal privado del operador *)
+free c3: channel .    (* AUSF <-> UDM: canal privado de la red doméstica *)
+
+(* --------------------------------------------------------- *)
+(* 3. Constantes públicas y privadas                           *)
+(* --------------------------------------------------------- *)
+
+free SUPI: bitstring [private].    (* Identificador del suscriptor permanente *)
+free SEAFN: bitstring.             (* Nombre de la red de servicio *)
+
+free CertAUSF: bitstring.          (* Certificado abstracto válido de AUSF *)
+free CertUE: bitstring.            (* Certificado abstracto válido de UE *)
+
+free Ksession:key [private].       (* Clave de sesión *)
+free prekey:bitstring [private].   (* Clave premaestra generada por UE *)
+(* --------------------------------------------------------- *)
+(* 4. Primitivas criptográficas                              *)
+(* --------------------------------------------------------- *)
+
+(* Cifrado asimétrico *)
+fun pk(skey): pkey.
+fun aenc(bitstring, pkey): bitstring.
+reduc forall m: bitstring, sk: skey; 
+    adec(aenc(m, pk(sk)), sk) = m.
+
+(* Cifrado simétrico *)
+fun senc(bitstring, key): bitstring.
+reduc forall m: bitstring, k: key;
+    sdec(senc(m, k), k) = m.
+
+(* Firmas digitales *)
+fun spk(sskey): spkey.
+fun sign(bitstring, sskey): bitstring.
+reduc forall m: bitstring, ssk: sskey;
+    checksign(sign(m, ssk), spk(ssk)) = m.
+
+(* Función hash y conversión de claves (Ksession) *)
+fun h(bitstring, bitstring, bitstring): bitstring.
+fun b_to_k(bitstring): key.
+
+(* Derivación de K_SEAF, simplificada como un constructor simbólico *)
+fun derive_KSEAF(bitstring): key.
+
+(* --------------------------------------------------------- *)
+(* 5. Eventos para propiedades de autenticación                   *)
+(* --------------------------------------------------------- *)
+
+event acceptsUE(bitstring).      (* UE acepta ejecutar el protocolo con la HN mediante Rue1 *)
+event termUE(bitstring).         (* UE termina de ejecutar el protocolo mediante Rausf *)
+
+event sendPrek(bitstring).       (* UE envía la clave premaestra *)
+event acceptPrek(bitstring).     (* AUSF acepta la clave premaestra *)
+
+event acceptsAUSF(bitstring).    (* AUSF acepta ejecutar el protocolo con el UE mediante Rausf *)
+event termAUSF(bitstring).       (* AUSF termina de ejecutar el protocolo mediante Rue1 *)
+
+(* event genPrek(bitstring).
+event genKsession(key). *)
+
+(* --------------------------------------------------------- *)
+(* 6. Queries de seguridad                                      *)
+(* --------------------------------------------------------- *)
+
+(* Confidencialidad de SUPI.*)
+query attacker(SUPI).
+
+(* Confidencialidad de prekey.*)
+query attacker(prekey).
+
+(* Confidencialidad de Ksession. *)
+query attacker(Ksession).
+
+(* Si UE termina con Rausfx, entonces AUSF debe haber aceptado Rausf . *)
+query x: bitstring;
+   inj-event(termUE(x)) ==> inj-event(acceptsAUSF(x)).
+
+(* Si AUSF termina con Rue1x, entonces UE debe haber aceptado Rue1. *)
+query x: bitstring;
+    inj-event(termAUSF(x)) ==> inj-event(acceptsUE(x)).
+
+(* Si AUSF acepta una clave premaestra x, entonces UE debe haberla generado/enviado. *)
+query x: bitstring;
+    inj-event(acceptPrek(x)) ==> inj-event(sendPrek(x)).
+
+(*---------------------------------------------------------- *)
+(*7. Proceso UE *)
+(*---------------------------------------------------------- *)
+
+let UE(pkAUSF: pkey, pkUDM: pkey, spkAUSF: spkey, spkUE: spkey, sskUE: sskey) =
+
+    (* Paso 1: UE envía SUCI y Rue, cifrados con pkUDM. *)
+    new Rue: bitstring;
+    out(c1, aenc((SUPI, Rue), pkUDM));
+
+    (* Paso 5: UE recibe TLS_START de AUSF a través de SEAF. *)
+    in(c1, Startx: bitstring);
+
+    (* Paso 6: UE genera Rue1 y lo envía. *)
+    new Rue1: bitstring;
+    out(c1, Rue1);
+
+    (* Paso 7: UE recibe Rausf y CertAUSF. *)
+    in(c1, (Rausfx: bitstring, CertAUSFx: bitstring));
+
+    (* Validación abstracta de certificado:
+       UE continúa solo si el certificado recibido es el CertAUSF válido. *)
+    let (=CertAUSF) = CertAUSFx in
+
+    (* Paso 8: UE genera la clave premaestra y deriva la clave de sesión. *)
+    new Rprekey: bitstring;
+    (* event genPrek(Rprekey); *)
+    let prekey = Rprekey in
+    let a = h(Rue1, Rausfx, prekey) in
+    let Ksession = b_to_k(a) in
+
+    (* Creación del handshake *)
+    let HSUE = (Startx, Rue1, Rausfx, CertAUSFx) in
+
+    event acceptsUE(Rue1);
+    event sendPrek(prekey);
+
+    (* UE envía:
+       - clave premaestra cifrada con pkAUSF
+       - certificado UE
+       - firma UE sobre el handshake
+       - handshake cifrado con Ksession *)
+    out(c1, (
+        aenc(prekey, pkAUSF),
+        CertUE,
+        sign(HSUE, sskUE),
+        senc(HSUE, Ksession)
+    ));
+
+    (* Paso 10: UE recibe la respuesta de AUSF cifrada con Ksession. *)
+    in(c1, HSAUSFx: bitstring);
+    let (=HSUE) = sdec(HSAUSFx, Ksession) in
+
+    (* UE envía EAP message final y recibe success. *)
+    new EAPM: bitstring;
+    out(c1, EAPM);
+    in(c1, SuccessMx: bitstring);
+
+    (* UE deriva K_SEAF después de recibir success. *)
+    let KSEAF_UE = derive_KSEAF(prekey) in
+    event termUE(Rausfx).
+
+(*---------------------------------------------------------- *)
+(*8. Proceso SEAF *)
+(*---------------------------------------------------------- *)
+
+let SEAF(pkAUSF: pkey, pkUDM: pkey, spkAUSF: spkey, spkUE: spkey) =
+
+    (* Paso 2: SEAF recibe SUCI del UE y lo envía a AUSF con SEAFN. *)
+    in(c1, x1: bitstring);
+    out(c2, (x1, SEAFN));
+
+    (* Paso 5: SEAF recibe TLS_START de AUSF y lo reenvía al UE. *)
+    in(c2, x2: bitstring);
+    out(c1, x2);
+
+    (* Paso 6: SEAF reenvía Rue1 del UE al AUSF. *)
+    in(c1, x3: bitstring);
+    out(c2, x3);
+
+    (* Paso 7: SEAF reenvía Rausf y CertAUSF de AUSF al UE. *)
+    in(c2, (x4: bitstring, x5: bitstring));
+    out(c1, (x4, x5));
+
+    (* Paso 8: SEAF reenvía datos de handshake del UE al AUSF. *)
+    in(c1, (x6: bitstring, x7: bitstring, x8: bitstring, x9: bitstring));
+    out(c2, (x6, x7, x8, x9));
+
+    (* Paso 9: SEAF reenvía respuesta de handshake encriptada por AUSF al UE. *)
+    in(c2, x10: bitstring);
+    out(c1, x10);
+
+    (* Paso 10: SEAF reenvía mensaje EAP del UE al AUSF. *)
+    in(c1, EAPMx: bitstring);
+    out(c2, EAPMx);
+
+    (* Paso 12: SEAF reenvía mensaje de éxito del AUSF al UE. *)
+    in(c2, SuccessMx: bitstring);
+    out(c1, SuccessMx).
+
+(*---------------------------------------------------------- *)
+(*9. Proceso AUSF *)
+(*---------------------------------------------------------- *)
+
+let AUSF(skAUSF: skey, pkUE: pkey, spkUE: spkey, sskAUSF: sskey, spkAUSF: spkey) =
+
+    (* Paso 2: AUSF recibe el SUCI and SEAFN procedente del SEAF. *)
+    in(c2, (SUCIx: bitstring, SEAFNx: bitstring));
+    (* Paso 3: AUSF verifica que el nombre de la red serviora es válido. *)
+    if SEAFNx = SEAFN then
+    (* AUSF envía SUCI al UDM a través del canal privado c3. *)
+    out(c3, (SUCIx, SEAFNx));
+
+    (* Paso 4: AUSF recibe mensaje INDICATOR(EAP_TLS) del del UDM. *)
+    in(c3, Startx: bitstring);
+    (* Paso 5: AUSF envía TLS_START al UE a través del SEAF. *)
+    out(c2, Startx);
+    (* Paso 6: AUSF recibe Rue1. *)
+    in(c2, Rue1x: bitstring);
+
+    (* Paso 7: AUSF deriva Rausf y lo envía con su certificado. *)
+    new Rausf: bitstring;
+    out(c2, (Rausf, CertAUSF));
+
+    (* Paso 8: AUSF recibe datos de handshake del UE. *)
+    in(c2, (
+        y: bitstring,
+        CertUEx: bitstring,
+        t: bitstring,
+        z: bitstring
+    ));
+    (* Validación del certificado del UE. *)
+    let (=CertUE) = CertUEx in
+
+    (* Paso 9: AUSF descifra la clave premaster y deriva la clave de sesión. *)
+    let prekeyx = adec(y, skAUSF) in
+    let b = h(Rue1x, Rausf, prekeyx) in
+    let Ksessionx = b_to_k(b) in
+    (* event genKsession(Ksession); *)
+    (* AUSF construye el transcript de handshake esperado. *)
+    let HSAUSF = (Startx, Rue1x, Rausf, CertAUSF) in
+
+    (* AUSF comprueba el handshake cifrado y la firma del UE. *)
+    let (=HSAUSF) = sdec(z, Ksessionx) in
+    let (=HSAUSF) = checksign(t, spkUE) in
+
+    event acceptPrek(prekeyx);
+    event acceptsAUSF(Rausf);
+
+    (* AUSF envía la respuesta de handshake cifrada al UE a través del SEAF. *)
+    out(c2, senc(HSAUSF, Ksessionx));
+
+    (* Paso 10: AUSF recibe el mensaje EAP final. *)
+    in(c2, EAPMx: bitstring);
+
+    (* Paso 11: AUSF deriva K_SEAF y envía el mensaje success message. *)
+    let KSEAF_AUSF = derive_KSEAF(prekeyx) in
+    new SUCM: bitstring;
+    out(c2, SUCM);
+
+    event termAUSF(Rue1x).
+
+(*---------------------------------------------------------- *)
+(*10. Proceso UDM *)
+(*---------------------------------------------------------- *)
+
+let UDM(skUDM: skey) =
+    (* Paso 3: UDM recibe SUCI enviado por AUSF. *)
+    in(c3, (SUCIx: bitstring, SEAFNx: bitstring));
+
+    (* SIDF descifra SUCI usando la clave privada de UDM. *)
+    let (SUPIx: bitstring, Ruex: bitstring) = adec(SUCIx, skUDM) in
+
+    (* UDM verifica la identidad del suscriptor. *)
+    if SUPIx = SUPI then
+
+    (* Paso 4: UDM envía información de INDICATOR(EAP_TLS) a AUSF. *)
+    new start: bitstring;
+    out(c3, start).
+
+
+(*---------------------------------------------------------- *)
+(*11. PROCESO PRINCIPAL DEL PROTOCOLO                                  *)
+(*---------------------------------------------------------- *)
+
+process
+(* Claves de cifrado asimétrico. *)
+new skAUSF: skey;
+new skUDM: skey;
+new skUE: skey;
+(* Claves de firma privada. *)
+new sskAUSF: sskey;
+new sskUE: sskey;
+(* Claves de cifrado público. *)
+let pkAUSF = pk(skAUSF) in
+let pkUDM = pk(skUDM) in
+let pkUE = pk(skUE) in
+(* Claves de verificación de firma pública. *)
+let spkAUSF = spk(sskAUSF) in
+let spkUE = spk(sskUE) in
+(* Claves públicas son puestas a disposición del atacante. *)
+out(c1, pkAUSF);
+out(c1, pkUDM);
+out(c1, pkUE);
+out(c1, spkAUSF);
+out(c1, spkUE);
+out(c1, SEAFN);
+(* Las funciones de red tambien reciben las claves públicas internamente. *)
+out(c2, pkAUSF);
+out(c2, pkUDM);
+out(c2, pkUE);
+out(c2, spkAUSF);
+out(c2, spkUE);
+out(c2, SEAFN);
+out(c3, pkAUSF);
+out(c3, pkUDM);
+out(c3, pkUE);
+out(c3, spkAUSF);
+out(c3, spkUE);
+out(c3, SEAFN);
+(
+    !UE(pkAUSF, pkUDM, spkAUSF, spkUE, sskUE)
+    |
+    !SEAF(pkAUSF, pkUDM, spkAUSF, spkUE)
+    |
+    !AUSF(skAUSF, pkUE, spkUE, sskAUSF, spkAUSF)
+    |
+    !UDM(skUDM)
+)
