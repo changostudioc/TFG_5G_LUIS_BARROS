@@ -9,7 +9,6 @@
 
 set traceDisplay = long. (*Para construir una versión mas detallada del grafo cuando la salida da false*)
 
-(* set reconstructTrace = true. *)
 (* --------------------------------------------------------- *)
 
 (* --------------------------------------------------------- *)
